@@ -2,7 +2,7 @@
 layout: post
 title: "PCIe BAR and Switch Fabric"
 date: 2025-11-07 20:47:00 +0900
-categories: research pcie
+categories: [GPU, Network]
 tags: [GPU, PCIe, BAR, Switch, RDMA, GDS]
 ---
 
