@@ -1,6 +1,6 @@
 ---
-title: Understanding the Stack; PyTorch → (CUDA / GDS) → GPU
-author: hdimmfh
+title: Inside the GPU Stack
+by: hdimmfh
 date: 2025-11-04 20:47:00 +0900
 categories: [Study, GPU]
 tags: [PyTorch, CUDA, GDS, GPU, DeepLearning]
@@ -13,7 +13,7 @@ In reality, several layers cooperate to move data and execute computation effici
 
 ---
 
-## 🧩 1️⃣ PyTorch — The Orchestrator
+## PyTorch — The Orchestrator
 
 PyTorch never touches GPU hardware directly.  
 It defines what operations to run and where to run them, then calls CUDA APIs internally.
@@ -27,7 +27,7 @@ PyTorch decides the logic; CUDA executes it.
 
 ---
 
-## ⚙️ 2️⃣ CUDA — The Executor
+## CUDA — The Executor
 
 CUDA (Compute Unified Device Architecture) is NVIDIA’s runtime that manages GPU memory and launches kernels.  
 It handles:
@@ -41,7 +41,7 @@ CUDA translates PyTorch’s high-level operations into GPU instructions.
 
 ---
 
-## 💪 3️⃣ GPU — The Worker
+## GPU — The Worker
 
 The GPU executes kernels scheduled by CUDA.  
 It reads data from its VRAM, performs matrix ops, and writes back results.  
@@ -49,7 +49,7 @@ It never acts on its own — every action begins with a CUDA command.
 
 ---
 
-## 💾 4️⃣ GDS (GPUDirect Storage) — Direct Data Path
+## GDS (GPUDirect Storage) — Direct Data Path
 
 Traditionally, data flows like this:
 
@@ -69,9 +69,9 @@ The CPU initiates the command, but the transfer bypasses system memory entirely.
 
 ---
 
-## 🧠 Summary Flow
+## Summary Flow
 
-**PyTorch → CUDA → GPU → GDS**
+- `PyTorch → CUDA → GPU → GDS`
 
 | Layer | Role |
 | ------ | ------ |
@@ -82,7 +82,7 @@ The CPU initiates the command, but the transfer bypasses system memory entirely.
 
 ---
 
-## 🧩 In One Line
+## In One Line
 
 ① PyTorch tells CUDA what to do,  
 ② CUDA tells the GPU how to do it,  
@@ -90,5 +90,7 @@ The CPU initiates the command, but the transfer bypasses system memory entirely.
 ④ and GDS feeds data straight from storage to GPU memory.
 
 ---
-
-*Originally posted on [Tistory](https://hdimmfh.tistory.com/62)* ✨
+<br/>
+<span style="color:#999999">
+    *Originally posted on [Tistory](https://hdimmfh.tistory.com/62)* ✨
+</span>
