@@ -3,6 +3,8 @@
 vendor
 # Gemfile.lock
 
+launch.bash
+
 # Jekyll cache
 .jekyll-cache
 .jekyll-metadata
