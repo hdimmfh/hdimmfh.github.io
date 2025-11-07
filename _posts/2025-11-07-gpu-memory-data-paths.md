@@ -179,7 +179,7 @@ these layers complete the story of **how commands and data meet** inside the GPU
 
 ---
 
-### 🧩 Summary
+## Summary
 
 | Path Type | Initiator | Mechanism | Example |
 |------------|------------|------------|----------|
@@ -187,8 +187,3 @@ these layers complete the story of **how commands and data meet** inside the GPU
 | GPU ↔ GPU (local) | GPU DMA | BAR-to-BAR | NCCL / CUDA P2P |
 | GPU ↔ GPU (remote) | NIC DMA | RDMA (Remote BAR) | GPUDirect RDMA |
 
----
-
-<span style="color:#999999">
-Originally posted on [hdimmfh.github.io](https://hdimmfh.github.io) ✨
-</span>
