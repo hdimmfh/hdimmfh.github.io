@@ -129,8 +129,3 @@ SM → GMMU → L2 Cache → Controller → HBM
 | L2 Cache | Data buffer | Slice |
 | Memory Controller | Command scheduling | Channel |
 | HBM | Physical memory | BankGroup / Bank |
-
----
-
-*Written by [hdimmfh](https://github.com/hdimmfh)*  
-*Nov 2025 — Understanding the GPU Stack Series, Part III*
