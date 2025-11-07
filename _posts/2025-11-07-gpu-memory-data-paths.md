@@ -8,7 +8,7 @@ tags: [GPU, PCIe, BAR, Switch, RDMA, GDS, Memory]
 
 🔍**GPU Memory Data Paths — How Bytes Actually Move**
 
-In the [previous post](https://hdimmfh.github.io/posts/2025-11-06-gpu-memory-architecture/),  
+In the [previous post](https://hdimmfh.github.io/posts/2025-11-06-gpu-memory-architecture),  
 we explored **the structure of the GPU’s memory system** — how SMs, caches, controllers, and HBM stacks connect.  
 
 ![PCIe Switchs Fabric](https://github.com/hdimmfh/blog-img-repo/blob/main/img/gpu/network/pcie_switch_fabric.webp?raw=true)
@@ -167,11 +167,11 @@ Thus, bytes flow from **system or remote memory → PCIe fabric → GPU BAR → 
 
 ## ⑧ Why It Matters
 
-In the [previous post](https://hdimmfh.github.io/posts/2025-11-04-inside-gpu-command-pipeline/),  
+In the [previous post](https://hdimmfh.github.io/posts/2025-11-04-inside-gpu-command-pipeline),  
 we saw how *commands* travel to tell the GPU *what* to do.  
 In this post, we examined how *data* actually travels to where it’s needed.  
 
-Together with [GPU Memory Architecture](https://hdimmfh.github.io/posts/2025-11-06-gpu-memory-architecture/),  
+Together with [GPU Memory Architecture](https://hdimmfh.github.io/posts/2025-11-06-gpu-memory-architecture),  
 these layers complete the story of **how commands and data meet** inside the GPU.
 
 > Command Path = PFIFO → PBDMA → SMs  
