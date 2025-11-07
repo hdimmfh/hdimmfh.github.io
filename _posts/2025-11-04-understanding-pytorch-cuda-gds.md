@@ -2,7 +2,7 @@
 title: Inside the GPU Stack
 by: hdimmfh
 date: 2025-11-04 20:47:00 +0900
-categories: [Study, GPU]
+categories: [GPU, Network]
 tags: [PyTorch, CUDA, GDS, GPU, DeepLearning]
 ---
 
