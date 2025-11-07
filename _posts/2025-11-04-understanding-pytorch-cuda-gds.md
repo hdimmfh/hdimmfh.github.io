@@ -13,7 +13,7 @@ In reality, several layers cooperate to move data and execute computation effici
 
 ---
 
-## PyTorch — The Orchestrator
+## ① PyTorch — The Orchestrator
 
 PyTorch never touches GPU hardware directly.  
 It defines what operations to run and where to run them, then calls CUDA APIs internally.
@@ -27,7 +27,7 @@ PyTorch decides the logic; CUDA executes it.
 
 ---
 
-## CUDA — The Executor
+## ② CUDA — The Executor
 
 CUDA (Compute Unified Device Architecture) is NVIDIA’s runtime that manages GPU memory and launches kernels.  
 It handles:
@@ -41,7 +41,7 @@ CUDA translates PyTorch’s high-level operations into GPU instructions.
 
 ---
 
-## GPU — The Worker
+## ③ GPU — The Worker
 
 The GPU executes kernels scheduled by CUDA.  
 It reads data from its VRAM, performs matrix ops, and writes back results.  
@@ -49,7 +49,7 @@ It never acts on its own — every action begins with a CUDA command.
 
 ---
 
-## GDS (GPUDirect Storage) — Direct Data Path
+## ④ GDS (GPUDirect Storage) — Direct Data Path
 
 Traditionally, data flows like this:
 
@@ -69,7 +69,7 @@ The CPU initiates the command, but the transfer bypasses system memory entirely.
 
 ---
 
-## Summary Flow
+## ⑤ Stack Flow
 
 - `PyTorch → CUDA → GPU → GDS`
 
