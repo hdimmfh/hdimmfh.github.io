@@ -6,7 +6,7 @@ categories: [GPU, Network]
 tags: [GPU, HBM, CUDA, Memory, Pipeline]
 ---
 
-# 🧭 Understanding the GPU Memory Network
+🔍**Understanding the GPU Memory Network**
 
 In the [previous post](https://hdimmfh.github.io/posts/inside-gpu-command-pipeline),  
 we traced **how commands** travel — from the CUDA driver to SMs.  
