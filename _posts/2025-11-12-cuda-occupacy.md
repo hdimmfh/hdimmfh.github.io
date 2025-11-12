@@ -1,5 +1,5 @@
 ---
-title: Understanding Occupancy in CUDA
+title: CUDA Occupancy — From Theoretical to Achieved Efficiency
 by: hdimmfh
 date: 2025-11-07 10:55:00 +0900
 categories: [GPU, Cuda]
