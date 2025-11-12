@@ -1,9 +1,9 @@
 ---
-title: GPU Memory Data Paths — How Bytes Actually Move
+title: Understanding Occupancy in CUDA
 by: hdimmfh
 date: 2025-11-07 10:55:00 +0900
-categories: [GPU, Network]
-tags: [GPU, PCIe, BAR, Switch, RDMA, GDS, Memory]
+categories: [GPU, Cuda]
+tags: [GPU, Cuda, Occupancy]
 ---
 
 🔍**Understanding Occupancy in CUDA**
