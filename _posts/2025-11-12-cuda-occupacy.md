@@ -18,7 +18,7 @@ warps* that the SM can theoretically support.
 *Figure 1. Theoretical Occupacy.*
 
 > **Formula:**\
-> Occupancy = (Active Warps per SM) / (Maximum Warps per SM)
+> Occupancy = `Active Warps per SM` / `Maximum Warps per SM`
 
 It measures how effectively the GPU's parallel resources are being
 utilized.
@@ -27,10 +27,10 @@ utilized.
 
 ## ② Example
 
-For instance, the NVIDIA A100 GPU can host up to **64 warps per SM**.\
-If your kernel launches only 32 warps on each SM, then:
+For instance, the NVIDIA A100 GPU can host up to `64 warps per SM`.\
+If your kernel launches only `32 warps on each SM`, then:
 
-> Occupancy = 32 / 64 = **50%**
+> ▶︎ Occupancy = 32 / 64 = 50%
 
 That means only half of the SM's execution slots are actively used.
 
@@ -45,11 +45,10 @@ the SM busy.
 However, occupancy is **not the sole performance indicator**.
 
 -   ✓ Higher occupancy → better latency hiding and concurrency\
--   ⚠️ Too high occupancy → less register/shared memory per thread,
+-   Too high occupancy → less register/shared memory per thread,
     which can reduce efficiency
 
-> ⚠️ In practice, **60~80% occupancy** often yields the best
-> performance --- not 100%.
+> ⚠️ In practice, `60~80% occupancy` often yields the best performance --- not 100%.
 
 ---
 
@@ -76,7 +75,7 @@ However, occupancy is **not the sole performance indicator**.
     active during runtime.\
     Tools like `nvprof` or **Nsight Compute** can report this metric.
 
-> ► **Important Note:**\
+> ⚠️ **Important Note:**\
 > Theoretical occupancy always assumes the **maximum blocks per SM**.\
 > Therefore, it is **usually higher than the achieved occupancy**
 > measured in real runs.
@@ -97,7 +96,6 @@ However, occupancy is **not the sole performance indicator**.
 
 ## References
 
--   NVIDIA CUDA Programming Guide, v12.4\
--   Nsight Compute Metric:
-    `sm__warps_active.avg.pct_of_peak_sustained_active`\
+-   NVIDIA CUDA Programming Guide, v12.4
+-   Nsight Compute Metric: `sm__warps_active.avg.pct_of_peak_sustained_active`
 -   NVIDIA CUDA Occupancy Calculator
