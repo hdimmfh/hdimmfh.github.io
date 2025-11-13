@@ -1,7 +1,7 @@
 ---
 title: Allocated Active Blocks per SM — The Hidden Driver of Occupancy
 by: hdimmfh
-date: 2025-11-13 15:20:00 +0900
+date: 2025-11-13 00:20:00 +0900
 categories: [GPU, Cuda]
 tags: [GPU, Cuda, Occupancy, AABS]
 ---
