@@ -23,7 +23,7 @@ That means the number of active blocks per SM is determined by the *most restric
 ## ② Resource Constraints
 
 ![The ncu Command Result Example](https://github.com/hdimmfh/blog-img-repo/blob/main/img/gpu/cuda/local_ncu_result.png?raw=true)
-*Figure 1. The ncu Command Result Example.*
+*Figure 1. Example result of the `ncu` (Nsight Compute) command on NVIDIA RTX A6000 (GA102, Ampere Architecture).*
 
 
 | Limiting Factor | Description | Example (A100) |
