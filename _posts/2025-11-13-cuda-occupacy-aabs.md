@@ -6,7 +6,7 @@ categories: [GPU, Cuda]
 tags: [GPU, Cuda, Occupancy, AABS]
 ---
 
-🔍 **Understanding Allocated Active Blocks per SM (AABS)**
+🔍**Understanding Allocated Active Blocks per SM (AABS)**
 
 ## ① What Is AABS?
 
