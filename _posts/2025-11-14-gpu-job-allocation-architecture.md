@@ -9,7 +9,7 @@ tags: [MPS, MIG, MxGPU, CUDA, ROCm]
 🔍**Understanding Modern GPU Virtualization**
 
 > “One GPU, many jobs — but not all sharing is the same.” \
-> In this post, we’ll explore how `NVIDIA MPS`, `VIDIA MIG`, and `AMD MxGPU` differ in design, purpose, and execution model.
+> In this post, we’ll explore how `cVIDIA MPS`, `NVIDIA MIG`, and `AMD MxGPU` differ in design, purpose, and execution model.
 
 ---
 
@@ -27,6 +27,9 @@ They can now be **shared across multiple processes or even multiple virtual mach
 ## ② MPS — Multi-Process Service
 
 `MPS` allows multiple CUDA processes (typically MPI ranks) to share a single GPU concurrently. It replaces CUDA’s per-process context scheduling with a single shared context, reducing overhead.
+
+![NVIDIA MPS Architecture](https://github.com/hdimmfh/blog-img-repo/blob/main/img/gpu/architecture/nvidia-mps-architecture.png?raw=true)
+*Figure 1. NVIDIA MPS Architecture.*
 
 ✔️ Key traits
 - Type: Software-level, runtime multiplexing  
@@ -47,6 +50,9 @@ They can now be **shared across multiple processes or even multiple virtual mach
 ## ③ MIG — Multi-Instance GPU
 
 `MIG` (introduced with NVIDIA Ampere) enables true hardware-level GPU partitioning. Each partition, or GPU instance, has dedicated compute cores, memory, and cache slices.
+
+![NVIDIA MIG Architecture](https://github.com/hdimmfh/blog-img-repo/blob/main/img/gpu/architecture/nvidia-mig-architecture.jpg?raw=true)
+*Figure 2. NVIDIA MIG Architecture.*
 
 ✔️ Key traits
 - Type: Hardware-level virtualization  
@@ -69,6 +75,9 @@ They can now be **shared across multiple processes or even multiple virtual mach
 
 `MxGPU (Multiuser GPU)` is AMD’s SR-IOV–based GPU virtualization solution.Unlike NVIDIA’s MIG or MPS, it’s designed from the start for virtual machines (VMs).
 
+![AMD MxGPU Architecture](https://github.com/hdimmfh/blog-img-repo/blob/main/img/gpu/architecture/amd-sr-iov-mxgpu-architecture.jpg?raw=true)
+*Figure 3. AMD SR-IOV MxGPU Architecture.*
+
 ✔️ Key traits
 - Type: Hardware-assisted virtualization (SR-IOV)  
 - Scope: Multiple VMs share one physical GPU via virtual functions (VFs)  
@@ -84,9 +93,14 @@ They can now be **shared across multiple processes or even multiple virtual mach
 ✔️ Best for
 - Cloud and VDI environments where **GPU passthrough per VM** is needed.
 
+💡 What is SR-IOV?
+> SR-IOV (Single Root I/O Virtualization) is a PCIe standard that allows a single physical device (like a GPU or NIC) to expose multiple Virtual Functions (VFs) to the system.  
+>
+>Each VF acts as an independent device that can be directly assigned to a virtual machine or container — enabling hardware-level GPU sharing with minimal overhead.
+
 ---
 
-## ⚖️ Comparison Summary
+## ⑤ Comparison Summary
 
 | Feature | **MPS** | **MIG** | **MxGPU** |
 |----------|----------|----------|------------|
@@ -101,7 +115,7 @@ They can now be **shared across multiple processes or even multiple virtual mach
 
 ---
 
-## 🧭 Practical Notes
+## ⑥ Practical Notes
 
 - **MPS** ≈ “many MPI ranks, one GPU”  
 - **MIG** ≈ “many GPUs inside one GPU”  
@@ -112,7 +126,7 @@ They can now be **shared across multiple processes or even multiple virtual mach
 
 ---
 
-## 🧠 TL;DR
+## ⑦ TL;DR
 
 | Goal | Recommended Tech |
 |------|------------------|
@@ -128,10 +142,3 @@ They can now be **shared across multiple processes or even multiple virtual mach
 - [NVIDIA MIG User Guide](https://docs.nvidia.com/datacenter/tesla/mig-user-guide/index.html)  
 - [AMD MxGPU (SR-IOV) Overview](https://www.amd.com/en/technologies/sr-iov.html)  
 - [ROCm Documentation](https://rocmdocs.amd.com/en/latest/)  
-
----
-
-> _Authored by Lucy So_  
-> Cloud Infra Engineer & AI Platform Planner  
-> [https://soyeonlucy.github.io](https://soyeonlucy.github.io)
-
