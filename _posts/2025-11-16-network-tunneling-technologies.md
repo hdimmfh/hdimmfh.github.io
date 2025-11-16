@@ -2,7 +2,7 @@
 title: "GRE vs VXLAN vs LISP — Modern Network Encapsulation Explained"
 by: hdimmfh
 date: 2025-11-16 13:30:00 +0900
-categories: [Network, Virtualization]
+categories: [Network, Network Virtualization]
 tags: [GRE, VXLAN, LISP, Overlay, Encapsulation]
 ---
 

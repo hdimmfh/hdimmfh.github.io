@@ -2,7 +2,7 @@
 title: GPU Memory Architecture — The Path of Operands
 by: hdimmfh
 date: 2025-11-06 10:00:00 +0900
-categories: [GPU, Network]
+categories: [GPU, GPU Network]
 tags: [GPU, HBM, CUDA, Memory, Pipeline]
 ---
 

@@ -2,7 +2,7 @@
 title: GPU Memory Data Paths — How Bytes Actually Move
 by: hdimmfh
 date: 2025-11-07 10:55:00 +0900
-categories: [GPU, Network]
+categories: [GPU, GPU Network]
 tags: [GPU, PCIe, BAR, Switch, RDMA, GDS, Memory]
 ---
 

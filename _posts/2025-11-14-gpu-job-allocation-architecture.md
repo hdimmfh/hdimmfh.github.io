@@ -2,7 +2,7 @@
 title: "MPS vs MIG vs MxGPU — Modern GPU Virtualization Explained"
 by: hdimmfh
 date: 2025-11-14 00:20:00 +0900
-categories: [GPU, Virtualization]
+categories: [GPU, GPU Virtualization]
 tags: [MPS, MIG, MxGPU, CUDA, ROCm]
 ---
 
