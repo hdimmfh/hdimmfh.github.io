@@ -129,8 +129,8 @@ The NIC’s **DMA engine** accesses GPU memory via BAR, while another NIC mirror
 GPU A (VRAM)
    ↑
 PCIe ←→ NIC A ──── RDMA Fabric ──── NIC B ←→ PCIe
-   ↓
-GPU B (VRAM)
+                                               ↓
+                                         GPU B (VRAM)
 ```
 
 Steps:
