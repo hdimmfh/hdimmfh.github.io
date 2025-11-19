@@ -19,7 +19,9 @@ title: Myeongsu Koo # the main title
 tagline: Exploring the boundaries between performance, security, and design. # it will display as the subtitle
 
 description: >- # used by seo meta and the atom feed
-  NVIDIA GPU, CUDA, MIG/MPS, AMD ROCm, HIP, Nsight 분석부터 Infiniband·RDMA·MXGPU·SR-IOV 기반 가속기 가상화까지 다루는 HPC 전문 기술 페이지입니다. AWS·GCP 클라우드 아키텍처, Linux 시스템, 네트워크 엔지니어링(Cisco) 등 고성능 인프라 전반을 깊게 탐구합니다.
+  NVIDIA GPU, CUDA, MIG/MPS, AMD ROCm, HIP, Nsight, Infiniband·RDMA·MXGPU·SR-IOV 기반 가속기 가상화까지 다루는 HPC 전문 기술
+  AWS·GCP 클라우드 아키텍처, Linux 시스템, 네트워크 엔지니어링(Cisco) 등 고성능 인프라 전반
+  hdimmfh.github.io, 구명수, 한양대, LG CNS
   
 # Fill in the protocol & hostname for your site.
 # E.g. 'https://username.github.io', note that it does not end with a '/'.
