@@ -204,6 +204,6 @@ The control plane prepares the network, while the data plane transfers tensors. 
 
 - Modern distributed GPU communication consists of several independent layers working together. 
 - Slurm, `torchrun`, MPI, or Kubernetes establishes the distributed world through bootstrap. NCCL then creates GPU communicators, discovers the hardware topology, and selects collective algorithms and communication transports. 
-- `RDMA-capable HCAs` move data between communication endpoints, while OpenSM prepares the InfiniBand subnet before runtime by configuring routing information and forwarding tables. 
+- RDMA-capable `HCAs` move data between communication endpoints, while OpenSM prepares the InfiniBand subnet before runtime by configuring routing information and forwarding tables. 
 - Once communication begins, InfiniBand switch ASICs forward packets entirely in hardware. 
 - Understanding this separation between bootstrap, communication planning, data transfer, and network control provides the foundation for understanding lower-level RDMA concepts such as Queue Pairs, Memory Regions, Work Requests, and Completion Queues.
