@@ -170,25 +170,19 @@ Before vehicles can move efficiently, someone must
 * determine intersections,
 * and configure traffic signals.
 
-Only after that preparation can cars begin driving.
-
-OpenSM plays a similar role for InfiniBand.
-
-It prepares the network but does not participate in every packet transmitted afterward.
+Only after that preparation can cars begin driving. OpenSM plays a similar role for InfiniBand. It prepares the network but does not participate in every packet transmitted afterward.
 
 ---
 
 ## ⑥ Lessons Learned
 
-OpenSM is often overlooked because it rarely appears in application code.
-
-However, every RDMA application running on InfiniBand depends on it.
+OpenSM is often overlooked because it rarely appears in application code. However, every RDMA application running on InfiniBand depends on it.
 
 Without a Subnet Manager,
 
-* ports cannot obtain LIDs,
-* switches cannot build forwarding tables,
-* and the InfiniBand fabric cannot become operational.
+* ports cannot obtain `LIDs`,
+* switches cannot build `forwarding tables`,
+* and the InfiniBand fabric cannot `become operational`.
 
 Although OpenSM never appears in the application data path, it is the component that transforms a collection of cables and switches into a functioning InfiniBand network.
 
