@@ -7,7 +7,8 @@ tags: [InfiniBand, OpenSM, RDMA]
 mermaid: true
 ---
 
-When people first encounter **InfiniBand**, they often assume it behaves like Ethernet. With Ethernet, connecting two hosts through a switch is usually enough for communication to begin immediately. InfiniBand is different. Even if every cable is connected correctly, hosts cannot communicate until another component initializes the fabric.
+🔍**Understanding Modern distributed GPU communication.**
+> When people first encounter **InfiniBand**, they often assume it behaves like Ethernet. With Ethernet, connecting two hosts through a switch is usually enough for communication to begin immediately. InfiniBand is different. Even if every cable is connected correctly, hosts cannot communicate until another component initializes the fabric.
 
 That component is **OpenSM**.
 
