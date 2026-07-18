@@ -29,7 +29,7 @@ Although GRE, VXLAN, and LISP all use encapsulation, their design goals are enti
 GRE provides a simple form of **IP-over-IP tunneling**.  
 It’s widely used to run routing protocols (OSPF, EIGRP) across WAN or public networks.
 
-![GRE Header](https://github.com/hdimmfh/hdimmfh.github.io/tree/main/_data/blog-img-repo/img/network/tunneling/gre-header.webp?raw=true)
+![GRE Header](https://github.com/hdimmfh/hdimmfh.github.io/blob/main/_data/blog-img-repo/img/network/tunneling/gre-header.webp?raw=true)
 *Figure 1. GRE Header and Encapsulation.*
 
 ✔️ **Header creation**
@@ -58,7 +58,7 @@ It’s widely used to run routing protocols (OSPF, EIGRP) across WAN or public n
 
 VXLAN is the modern data center standard for **extending L2 domains over an L3 IP underlay**.
 
-![VXLAN header](https://github.com/hdimmfh/hdimmfh.github.io/tree/main/_data/blog-img-repo/img/network/tunneling/vxlan-vtep-header.png?raw=true)
+![VXLAN header](https://github.com/hdimmfh/hdimmfh.github.io/blob/main/_data/blog-img-repo/img/network/tunneling/vxlan-vtep-header.png?raw=true)
 *Figure 2. VXLAN Header and Encapsulation.*
 
 ✔️ **Header creation**
@@ -88,7 +88,7 @@ VXLAN is the modern data center standard for **extending L2 domains over an L3 I
 LISP separates a device’s identifier (**EID**) from its routing locator (**RLOC**).  
 This enables scalable multi-site routing, mobility, and WAN-level optimization.
 
-![LISP header](https://github.com/hdimmfh/hdimmfh.github.io/tree/main/_data/blog-img-repo/img/network/tunneling/LISP-header-ipcisco.png?raw=true)
+![LISP header](https://github.com/hdimmfh/hdimmfh.github.io/blob/main/_data/blog-img-repo/img/network/tunneling/LISP-header-ipcisco.png?raw=true)
 *Figure 3. LISP header and Encapsulation.*
 
 ✔️ **Header creation**

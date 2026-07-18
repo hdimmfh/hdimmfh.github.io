@@ -46,7 +46,7 @@ Partition 3 → warp D
 ```
 
 <div style="text-align:center;">
-  <img src="https://github.com/hdimmfh/hdimmfh.github.io/tree/main/_data/blog-img-repo/img/gpu/component/warp-scheduler.gif?raw=true" width="350">
+  <img src="https://github.com/hdimmfh/hdimmfh.github.io/blob/main/_data/blog-img-repo/img/gpu/component/warp-scheduler.gif?raw=true" width="350">
   <br>
   <em>Figure 1. Warp-Scheduler: Selected Warp.</em>
 </div>
