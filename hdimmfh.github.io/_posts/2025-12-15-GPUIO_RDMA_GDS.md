@@ -1,5 +1,5 @@
 ---
-title: GPU I/O — RDMA/GDS
+title: GPU I/O(1) — RDMA/GDS
 by: hdimmfh
 date: 2025-12-15 02:10:00 +0900
 categories: [GPU, GPU Network]

@@ -2,7 +2,7 @@
 title: OpenSM - InfiniBand Subnet Manager
 by: hdimmfh
 date: 2026-07-17 20:00:00 +0900
-categories: [GPU, GPU Networking]
+categories: [GPU, GPU Network]
 tags: [InfiniBand, OpenSM, RDMA]
 mermaid: true
 ---

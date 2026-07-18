@@ -1,5 +1,5 @@
 ---
-title: GPU Virtualization — MPS/MIG/MxGPU
+title: GPU Virtualization(1) — MPS/MIG/MxGPU
 by: hdimmfh
 date: 2025-11-14 00:20:00 +0900
 categories: [GPU, GPU Virtualization]

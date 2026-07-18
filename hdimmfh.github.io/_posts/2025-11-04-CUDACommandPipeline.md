@@ -1,5 +1,5 @@
 ---
-title: CUDA — Command Pipeline
+title: CUDA(1) — Command Pipeline
 by: hdimmfh
 date: 2025-11-04 10:40:00 +0900
 categories: [GPU, GPU Network]

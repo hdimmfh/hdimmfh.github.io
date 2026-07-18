@@ -1,5 +1,5 @@
 ---
-title: Networking — GRE/VXLAN/LISP
+title: Network Overlay Protocols(1) — GRE/VXLAN/LISP
 by: hdimmfh
 date: 2025-11-16 13:30:00 +0900
 categories: [Network, Network Virtualization]

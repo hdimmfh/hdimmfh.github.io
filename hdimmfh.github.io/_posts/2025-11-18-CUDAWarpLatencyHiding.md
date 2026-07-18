@@ -1,5 +1,5 @@
 ---
-title: CUDA — Warp Latency Hiding
+title: CUDA(4) — Warp Latency Hiding
 by: hdimmfh
 date: 2025-11-18 01:40:00 +0900
 categories: [GPU, CUDA]

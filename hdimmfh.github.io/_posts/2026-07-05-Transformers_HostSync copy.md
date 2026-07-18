@@ -1,9 +1,9 @@
 ---
-title: Transformers — Detecting Host Sync
+title: Contributing to Transformers — Eliminating Hidden Host Synchronization
 by: hdimmfh
 date: 2026-07-04 16:00:00 +0900
 categories: [GPU, CUDA]
-tags: [CUDA, DeepSpeed, Transformers, Nsight, PyTorch]
+tags: [CUDA, DeepSpeed, Transformers, Nsight, PyTorch, Open Source]
 ---
 
 🔍 **Finding a Hidden GPU Synchronization Bottleneck**
@@ -14,9 +14,7 @@ tags: [CUDA, DeepSpeed, Transformers, Nsight, PyTorch]
 
 ## ① The Symptom
 
-During distributed training on a **2-node NVIDIA B300 cluster (16 GPUs)**, I profiled the forward pass using **Nsight Systems**.
-
-Surprisingly, the `compute_loss` NVTX region contained a long idle section where almost every GPU metric dropped.
+During distributed training on a **2-node NVIDIA B300 cluster (16 GPUs)**, I profiled the forward pass using `Nsight Systems`. Surprisingly, the `compute_loss` NVTX region contained a long idle section where almost every GPU metric dropped.
 
 Observed timeline:
 
@@ -93,11 +91,7 @@ The critical line is
 if good_tokens_per_rank[rank] > 0
 ```
 
-Since `good_tokens_per_rank` contains CUDA tensors returned by `all_gather`, the Python conditional may require evaluating a GPU value on the host.
-
-That evaluation can introduce an implicit synchronization, which appears in Nsight Systems as repeated small Device-to-Host memcpy operations together with host-side waiting.
-
-Although each synchronization transfers only **8 bytes**, repeating this operation many times creates noticeable bubbles in the execution timeline.
+Since `good_tokens_per_rank` contains CUDA tensors returned by `all_gather`, the Python conditional may require evaluating a GPU value on the host. That evaluation can introduce an implicit synchronization, which appears in Nsight Systems as repeated small Device-to-Host memcpy operations together with host-side waiting. Although each synchronization transfers only **8 bytes**, repeating this operation many times creates noticeable bubbles in the execution timeline.
 
 ---
 
@@ -120,39 +114,41 @@ safe_losses = torch.where(
 total_loss = (safe_losses * good_tokens).sum()
 ```
 
-This keeps the filtering on the GPU and avoids evaluating CUDA tensors inside Python.
-
-Whether this implementation is appropriate depends on the intended semantics (for example, handling zero-token ranks and NaN propagation), but it illustrates how the host synchronization can potentially be removed.
+This keeps the filtering on the GPU and avoids evaluating CUDA tensors inside Python. Whether this implementation is appropriate depends on the intended semantics (for example, handling zero-token ranks and NaN propagation), but it illustrates how the host synchronization can potentially be removed.
 
 ---
 
-## ⑤ Upstream Discussion
+## ⑤ Upstream Contribution
 
-After identifying the issue, I opened an upstream discussion in the **[Hugging Face Transformers](https://github.com/huggingface/transformers/issues/47068)** repository.
+After confirming the root cause, I opened an issue in the Hugging Face Transformers repository to discuss the unexpected host synchronization observed during Sequence Parallel loss computation.
 
-The discussion focused on whether the loss aggregation could remain entirely on the GPU while preserving the original behavior.
+The discussion concluded that the Python conditional evaluating CUDA tensors could indeed introduce unnecessary host synchronization. A follow-up pull request replaced the Python-side branching with a GPU-side tensor implementation while preserving the original semantics.
 
-Following the discussion, a pull request implementing the GPU-side aggregation approach was opened. At the time of writing, the PR is still under review.
+The contribution was reviewed by the Transformers maintainers and ultimately merged into the upstream project.
 
----
+**Related links**
+
+- Issue: https://github.com/huggingface/transformers/issues/47068
+- Pull Request: https://github.com/huggingface/transformers/pull/47073
 
 ## ⑥ Lessons Learned
 
-This investigation reinforced an important lesson about GPU performance analysis. Not every GPU stall originates from CUDA kernels. Sometimes the largest performance bubble is caused by a seemingly harmless Python statement.
+This investigation reinforced an important lesson about GPU performance analysis.
+
+Performance bottlenecks are not always caused by CUDA kernels. In this case, a single Python conditional evaluating CUDA tensors introduced repeated host synchronization that became visible only in the system timeline. The investigation ultimately led to an upstream improvement in Hugging Face Transformers, demonstrating how system-level profiling can uncover optimization opportunities beyond CUDA kernel implementations.
 
 When profiling distributed training,
 
 - CUDA kernels alone do not tell the full story.
-- Host synchronization must also be examined.
-- Nsight Systems timelines are often more informative than kernel-level metrics alone.
-
-Following the synchronization path—from CUDA kernels to host events and finally back to Python source code—was ultimately what revealed the bottleneck.
+- CPU-side synchronization deserves equal attention.
+- Nsight Systems often reveals bottlenecks that kernel-level profilers cannot.
+- Small synchronizations repeated at scale can become measurable training overhead.
 
 ---
 
 ## TL;DR
 
-- Nsight Systems revealed repeated 8-byte Device-to-Host memcpy operations inside `compute_loss`.
-- GPU utilization remained unexpectedly low despite no visible CUDA kernel bottleneck.
-- Root-cause analysis traced the synchronization to a Python conditional evaluating CUDA tensors.
-- Replacing Python branching with GPU tensor operations can potentially eliminate unnecessary host synchronization while preserving the same computation.
+- Nsight Systems revealed repeated 8-byte Device-to-Host memcpy operations during Sequence Parallel loss computation.
+- The synchronization originated from a Python conditional evaluating CUDA tensors.
+- Replacing Python branching with GPU tensor operations removed the unnecessary host synchronization.
+- The optimization was contributed upstream and merged into Hugging Face Transformers.

@@ -1,5 +1,5 @@
 ---
-title: CUDA — Occupancy
+title: CUDA(2) — Occupancy
 by: hdimmfh
 date: 2025-11-12 10:55:00 +0900
 categories: [GPU, CUDA]

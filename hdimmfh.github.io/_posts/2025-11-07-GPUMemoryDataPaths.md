@@ -1,5 +1,5 @@
 ---
-title: GPU Memory — Data Paths
+title: GPU Memory(2) — Data Paths
 by: hdimmfh
 date: 2025-11-07 10:55:00 +0900
 categories: [GPU, GPU Network]

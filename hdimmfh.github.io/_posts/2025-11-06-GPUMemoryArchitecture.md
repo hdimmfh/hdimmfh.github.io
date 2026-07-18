@@ -1,5 +1,5 @@
 ---
-title: GPU Memory — Architecture
+title: GPU Memory(1) — Architecture
 by: hdimmfh
 date: 2025-11-06 10:00:00 +0900
 categories: [GPU, GPU Network]
