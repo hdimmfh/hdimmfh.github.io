@@ -29,7 +29,7 @@ This model introduced:
 
 To remove these bottlenecks, data movement evolved across three major axes:
 
-![GPU Data Movement History](https://github.com/hdimmfh/blog-img-repo/blob/main/img/gpu/architecture/history_gpu_data_movement_layer.png?raw=true)
+![GPU Data Movement History](https://github.com/hdimmfh/hdimmfh.github.io/tree/main/_data/blog-img-repo/blob/main/img/gpu/architecture/history_gpu_data_movement_layer.png?raw=true)
 *Figure 1. GPU Data Movement History.*
 
 1. **RDMA (1999+)**
@@ -80,7 +80,7 @@ No payload data passes through CPU caches.
 
 **GPUDirect Storage (GDS)** enables direct data transfer:
 
-![GPU Local Data Movement](https://github.com/hdimmfh/blog-img-repo/blob/main/img/gpu/architecture/history_gpu_data_movement_layer_gds.png?raw=true)
+![GPU Local Data Movement](https://github.com/hdimmfh/hdimmfh.github.io/tree/main/_data/blog-img-repo/blob/main/img/gpu/architecture/history_gpu_data_movement_layer_gds.png?raw=true)
 *Figure 2. GPU Local Data Movement.*
 
 ```
@@ -117,7 +117,7 @@ Characteristics:
 
 Remote GDS extends the same principle **across hosts**.
 
-![GPU Remote Data Movement](https://github.com/hdimmfh/blog-img-repo/blob/main/img/gpu/architecture/history_gpu_data_movement_layer_remote_gds.png?raw=true)
+![GPU Remote Data Movement](https://github.com/hdimmfh/hdimmfh.github.io/tree/main/_data/blog-img-repo/blob/main/img/gpu/architecture/history_gpu_data_movement_layer_remote_gds.png?raw=true)
 *Figure 3. GPU Remote Data Movement.*
 
 ### Data Path

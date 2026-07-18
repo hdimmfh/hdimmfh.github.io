@@ -11,7 +11,7 @@ tags: [GPU, PCIe, BAR, Switch, RDMA, GDS, Memory]
 In the [previous post](https://hdimmfh.github.io/posts/2025-11-06-gpu-memory-architecture),  
 we explored **the structure of the GPU’s memory system** — how SMs, caches, controllers, and HBM stacks connect.  
 
-![PCIe Switchs Fabric](https://github.com/hdimmfh/blog-img-repo/blob/main/img/gpu/network/pcie_switch_fabric.webp?raw=true)
+![PCIe Switchs Fabric](https://github.com/hdimmfh/hdimmfh.github.io/tree/main/_data/blog-img-repo/blob/main/img/gpu/network/pcie_switch_fabric.webp?raw=true)
 *Figure 1. PCIe Switchs Fabric.*
 
 
@@ -45,7 +45,7 @@ Host CPU
 
 **BAR (Base Address Register)** defines a memory window that maps a device’s internal memory into the PCIe address space.
 
-![PCI BAR memory addresses](https://github.com/hdimmfh/blog-img-repo/blob/main/img/gpu/network/pcie_bar.png?raw=true)
+![PCI BAR memory addresses](https://github.com/hdimmfh/hdimmfh.github.io/tree/main/_data/blog-img-repo/blob/main/img/gpu/network/pcie_bar.png?raw=true)
 *Figure 2. Device memory regions (BARs) are mapped into the same address space as system memory.*
 
 Example for a GPU:

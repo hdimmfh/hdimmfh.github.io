@@ -28,7 +28,7 @@ They can now be **shared across multiple processes or even multiple virtual mach
 
 `MPS` allows multiple CUDA processes (typically MPI ranks) to share a single GPU concurrently. It replaces CUDA’s per-process context scheduling with a single shared context, reducing overhead.
 
-![NVIDIA MPS Architecture](https://github.com/hdimmfh/blog-img-repo/blob/main/img/gpu/architecture/nvidia-mps-architecture.png?raw=true)
+![NVIDIA MPS Architecture](https://github.com/hdimmfh/hdimmfh.github.io/tree/main/_data/blog-img-repo/blob/main/img/gpu/architecture/nvidia-mps-architecture.png?raw=true)
 *Figure 1. NVIDIA MPS Architecture.*
 
 ✔️ Key traits
@@ -51,7 +51,7 @@ They can now be **shared across multiple processes or even multiple virtual mach
 
 `MIG` (introduced with NVIDIA Ampere) enables true hardware-level GPU partitioning. Each partition, or GPU instance, has dedicated compute cores, memory, and cache slices.
 
-![NVIDIA MIG Architecture](https://github.com/hdimmfh/blog-img-repo/blob/main/img/gpu/architecture/nvidia-mig-architecture.jpg?raw=true)
+![NVIDIA MIG Architecture](https://github.com/hdimmfh/hdimmfh.github.io/tree/main/_data/blog-img-repo/blob/main/img/gpu/architecture/nvidia-mig-architecture.jpg?raw=true)
 *Figure 2. NVIDIA MIG Architecture.*
 
 ✔️ Key traits
@@ -75,7 +75,7 @@ They can now be **shared across multiple processes or even multiple virtual mach
 
 `MxGPU (Multiuser GPU)` is AMD’s SR-IOV–based GPU virtualization solution.Unlike NVIDIA’s MIG or MPS, it’s designed from the start for virtual machines (VMs).
 
-![AMD MxGPU Architecture](https://github.com/hdimmfh/blog-img-repo/blob/main/img/gpu/architecture/amd-sr-iov-mxgpu-architecture.jpg?raw=true)
+![AMD MxGPU Architecture](https://github.com/hdimmfh/hdimmfh.github.io/tree/main/_data/blog-img-repo/blob/main/img/gpu/architecture/amd-sr-iov-mxgpu-architecture.jpg?raw=true)
 *Figure 3. AMD SR-IOV MxGPU Architecture.*
 
 ✔️ Key traits
