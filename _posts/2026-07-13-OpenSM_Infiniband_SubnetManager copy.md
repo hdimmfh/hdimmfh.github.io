@@ -1,5 +1,5 @@
 ---
-title: OpenSM(1) - InfiniBand Subnet Manager
+title: AI Infra Communication(1) - OpenSM
 by: hdimmfh
 date: 2026-07-13 15:02:00 +0900
 categories: [GPU, GPU Network]
