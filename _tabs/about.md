@@ -22,7 +22,13 @@ Contributed to projects including:
 
 ## 📰 Reading Notes
 
-| Date | Topic | References |
+| Date | Topic | Official Documentation |
 |------|-------|------------|
 | 2026-07-18 | Slurm & MPI | [Slurm & MPI](https://slurm.schedmd.com/mpi_guide.html) |
 | 2026-07-17 | Cilium, eBPF and Envoy | [eBPF](https://ebpf.io/what-is-ebpf/) |
+| 2026-07-19 | Cilium XDP and LoadBalancing | [Cilium XDP and LoadBalancing](https://cilium.io/blog/2020/06/22/cilium-18/) |
+| 2026-07-19 | Cilium Native Routing | [Routing — Native Routing](https://docs.cilium.io/en/stable/network/concepts/routing/#native-routing) |
+| 2026-07-19 | Cilium NIC Selection | [NodePort Devices, Port and Bind Settings](https://docs.cilium.io/en/stable/network/kubernetes/kubeproxy-free/#nodeport-devices-port-and-bind-settings) |
+| 2026-07-19 | Cilium XDP Acceleration | [NodePort XDP Acceleration](https://docs.cilium.io/en/stable/network/kubernetes/kubeproxy-free/#loadbalancer-nodeport-xdp-acceleration) |
+| 2026-07-19 | Cilium eBPF Masquerading | [Masquerading — eBPF-based](https://docs.cilium.io/en/stable/network/concepts/masquerading/#ebpf-based) |
+| 2026-07-19 | Cilium Helm Options | [Cilium Helm Reference](https://docs.cilium.io/en/stable/helm-reference/) |
