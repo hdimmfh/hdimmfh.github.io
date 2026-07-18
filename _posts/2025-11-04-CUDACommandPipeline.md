@@ -11,7 +11,7 @@ tags: [CUDA, PFIFO, PBDMA, GPU, Kernel, CommandBuffer]
 When we say *“PyTorch sends a kernel to the GPU”*, it’s easy to imagine that the CPU somehow pushes arithmetic instructions like `add` or `mul` directly into the GPU.  
 But that’s not what really happens.  
 
-![MMIO Between CPU(Cuda driver) and GPU BAR](https://github.com/hdimmfh/hdimmfh.github.io/tree/main/_data/blog-img-repo/img/gpu/network/gpu_command_flow.png?raw=true)
+![MMIO Between CPU(Cuda driver) and GPU BAR](https://github.com/hdimmfh/hdimmfh.github.io/blob/main/_data/blog-img-repo/img/gpu/network/gpu_command_flow.png?raw=true)
 *Figure 1. MMIO Between CPU(Cuda driver) and GPU.*
 
 In reality, what travels through PCIe is not a stream of math operations —  
@@ -92,7 +92,7 @@ The **Compute Engine** receives this VA,
 consults the **GMMU (GPU Memory Management Unit)** to translate it into a GPU physical address,  
 and fetches the kernel binary (SASS code) from VRAM.
 
-![GPU L1 L2 DRAM Architecture](https://github.com/hdimmfh/hdimmfh.github.io/tree/main/_data/blog-img-repo/img/gpu/architecture/cache_memory_architecture.png?raw=true)
+![GPU L1 L2 DRAM Architecture](https://github.com/hdimmfh/hdimmfh.github.io/blob/main/_data/blog-img-repo/img/gpu/architecture/cache_memory_architecture.png?raw=true)
 *Figure 2. GPU L1, L2, DRAM Architecture.*
 
 That code then flows down the cache hierarchy:

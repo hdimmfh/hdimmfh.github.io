@@ -85,7 +85,7 @@ This is effectively **micro‑serialization inside the cache**.
 
 ## ⑤ Shared Memory: Why Bank Distribution Matters
 
-![Bank Conflict](https://github.com/hdimmfh/hdimmfh.github.io/tree/main/_data/blog-img-repo/img/gpu/architecture/nvidia-sm-cache-memory-conflict.png?raw=true)
+![Bank Conflict](https://github.com/hdimmfh/hdimmfh.github.io/blob/main/_data/blog-img-repo/img/gpu/architecture/nvidia-sm-cache-memory-conflict.png?raw=true)
 *Figure 2. Bank Conflict in Shared Memory per SM.*
 
 1. Shared Memory (SMEM) is:
@@ -176,7 +176,7 @@ AMD GPUs follow a similar philosophy of massive concurrency, but the execution a
 
 On AMD architectures (GCN / RDNA), a SIMD typically **issues one wavefront instruction per cycle**, while multiple wavefronts remain resident to tolerate stalls.
 
-![AMD SIMD Latency Hiding](https://github.com/hdimmfh/hdimmfh.github.io/tree/main/_data/blog-img-repo/img/gpu/architecture/amd-cu-simd-operations.png?raw=true)
+![AMD SIMD Latency Hiding](https://github.com/hdimmfh/hdimmfh.github.io/blob/main/_data/blog-img-repo/img/gpu/architecture/amd-cu-simd-operations.png?raw=true)
 *Figure 3. AMD SIMD Latency Hiding.*
 
 - AMD does **not rely on fine-grained pipeline-level latency hiding inside a single wavefront**

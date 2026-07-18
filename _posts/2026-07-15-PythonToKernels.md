@@ -53,6 +53,9 @@ flowchart LR
     CODEGEN --> RUNTIME
     RUNTIME --> DEVICE
 ```
+![Torch to Kernel Pipeline](https://github.com/hdimmfh/hdimmfh.github.io/blob/main/_data/blog-img-repo/img/gpu/cuda/torch_pipeline.png?raw=true)
+*Figure 1. From Python to GPU Kernels.*
+
 
 This diagram is useful as a conceptual map, but the implementation is not always a single rigid sequence. Inference may not require a backward graph, graph breaks may divide one Python function into multiple compiled regions, and different backends can replace TorchInductor. The default `torch.compile` path, however, generally follows this structure.
 
