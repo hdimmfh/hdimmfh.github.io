@@ -14,7 +14,7 @@ tags: [GPU, CUDA, Occupancy]
 running on a Streaming Multiprocessor (SM) and the *maximum number of
 warps* that the SM can theoretically support.
 
-![Calculating Theoretical Occupacy](https://github.com/hdimmfh/hdimmfh.github.io/tree/main/_data/blog-img-repo/blob/main/img/gpu/architecture/sm_block_thread_occupancy.png?raw=true)
+![Calculating Theoretical Occupacy](https://github.com/hdimmfh/hdimmfh.github.io/tree/main/_data/blog-img-repo/img/gpu/architecture/sm_block_thread_occupancy.png?raw=true)
 *Figure 1. Theoretical Occupacy.*
 
 > **Formula:**\

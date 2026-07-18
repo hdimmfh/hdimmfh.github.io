@@ -20,10 +20,10 @@ understanding the *data path* is just as essential as the *command path.*
 
 ## ① Big Picture — The Memory Highway
 
-![NVIDIA A100 GPU Architecture Diagram](https://github.com/hdimmfh/hdimmfh.github.io/tree/main/_data/blog-img-repo/blob/main/img/gpu/architecture/CSP-multi-user-with-MIG.png?raw=true)
+![NVIDIA A100 GPU Architecture Diagram](https://github.com/hdimmfh/hdimmfh.github.io/tree/main/_data/blog-img-repo/img/gpu/architecture/CSP-multi-user-with-MIG.png?raw=true)
 *Figure 1. NVIDIA A100 GPU Architecture (MIG Example).*
 
-![Memory hierarchy](https://github.com/hdimmfh/hdimmfh.github.io/tree/main/_data/blog-img-repo/blob/main/img/gpu/architecture/memory-hierarchy-in-gpus.png?raw=true)
+![Memory hierarchy](https://github.com/hdimmfh/hdimmfh.github.io/tree/main/_data/blog-img-repo/img/gpu/architecture/memory-hierarchy-in-gpus.png?raw=true)
 *Figure 2. Memory hierarchy in GPUs.*
 
 From compute cores down to physical DRAM:
@@ -80,7 +80,7 @@ Controller count = Channel count
 
 ## ⑤ High-Bandwidth Memory (HBM) — The Physical Store
 
-![HBM Internal Structure](https://github.com/hdimmfh/hdimmfh.github.io/tree/main/_data/blog-img-repo/blob/main/img/gpu/architecture/HBM-architecture.png?raw=true)
+![HBM Internal Structure](https://github.com/hdimmfh/hdimmfh.github.io/tree/main/_data/blog-img-repo/img/gpu/architecture/HBM-architecture.png?raw=true)
 *Figure 3. HBM Stacked DRAM Architecture.*
 
 ```

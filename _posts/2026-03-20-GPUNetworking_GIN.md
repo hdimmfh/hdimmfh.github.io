@@ -36,7 +36,7 @@ Early GPU workloads relied on `CPU-centric` orchestration, where the CPU acted a
 While data paths have been optimized, the CPU-centric control plane remains a critical bottleneck. The constant need for host intervention to trigger network operations introduces significant scheduling bubbles and prevents the GPU from achieving its full communication potential.
 
 <div style="background-color: white; padding: 2px; margin-top: 10px; border-radius: 8px; text-align: center; border: 1px solid #eee;">
-  <img src="https://github.com/hdimmfh/hdimmfh.github.io/tree/main/_data/blog-img-repo/blob/main/img/gpu/network/cpu-centeric-gpu-networking.png?raw=true" 
+  <img src="https://github.com/hdimmfh/hdimmfh.github.io/tree/main/_data/blog-img-repo/img/gpu/network/cpu-centeric-gpu-networking.png?raw=true" 
     alt="CPU-Centric GPU Networking">
   <p style="margin-top: 15px; margin-bottom: 0px; padding: 0px; font-style: italic; color: #666;">Figure 1. CPU-centric Networking.</p>
 </div>
@@ -54,7 +54,7 @@ While data paths have been optimized, the CPU-centric control plane remains a cr
 If GPUDirect RDMA built the "Highway" for data, `GIN` finally hands the "Steering Wheel" to the GPU.
 
 <div style="background-color: white; padding: 2px; margin-top: 10px; border-radius: 8px; text-align: center; border: 1px solid #eee;">
-  <img src="https://github.com/hdimmfh/hdimmfh.github.io/tree/main/_data/blog-img-repo/blob/main/img/gpu/network/gpu-initiated-networking.png?raw=true" 
+  <img src="https://github.com/hdimmfh/hdimmfh.github.io/tree/main/_data/blog-img-repo/img/gpu/network/gpu-initiated-networking.png?raw=true" 
     alt="GPU-Initiated Networking">
   <p style="margin-top: 15px; margin-bottom: 0px; padding: 0px; font-style: italic; color: #666;">Figure 2. GPU-centric with the GPU controlling NIC.</p>
 </div>
