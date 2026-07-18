@@ -25,3 +25,4 @@ Contributed to projects including:
 | Date | Topic | References |
 |------|-------|------------|
 | 2026-07-18 | Slurm & MPI | [Slurm & MPI](https://slurm.schedmd.com/mpi_guide.html) |
+| 2026-07-17 | Cilium, eBPF and Envoy | [eBPF](https://ebpf.io/what-is-ebpf/) |
