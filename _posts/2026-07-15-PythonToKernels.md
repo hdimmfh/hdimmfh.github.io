@@ -160,125 +160,146 @@ The graph is therefore the boundary between flexible Python execution and compil
 
 ## ④ FakeTensor and Symbolic Shapes
 
-Graph capture and compilation should not need to allocate every real tensor produced by the model. PyTorch uses FakeTensor-based execution to propagate metadata such as shape, dtype, stride, layout, and device without performing the full numerical computation.
+Graph capture and compilation do not require PyTorch to execute every tensor operation with real data. Instead, PyTorch uses FakeTensor execution to propagate tensor metadata—such as shape, dtype, stride, layout, and device—without allocating memory or performing the full numerical computation. This allows the compiler to analyze tensor properties while constructing the computation graph.
 
-```mermaid
-flowchart LR
-    INPUT["Input Metadata"]
-    FAKE["FakeTensor Execution"]
-    SHAPE["Shape and Stride Propagation"]
-    GRAPH["Annotated FX Graph"]
+For example, the compiler may need to know that a matrix multiplication produces a tensor with shape **[batch, sequence, hidden]**, but it does not need to compute the actual tensor values during graph construction. Metadata alone is sufficient for graph analysis and subsequent compiler optimizations.
 
-    INPUT --> FAKE
-    FAKE --> SHAPE
-    SHAPE --> GRAPH
-```
+FakeTensor execution can propagate both concrete and symbolic dimensions. Rather than requiring every dimension to be a fixed integer, PyTorch can represent dynamic dimensions using symbolic values. This allows a single compiled graph to support multiple compatible input sizes, provided that the generated guards and compiled code remain valid.
 
-For example, the compiler may need to know that a matrix multiplication produces a tensor with shape `[batch, sequence, hidden]`, but it does not need to calculate the actual values while constructing the graph.
-
-Dynamic dimensions can be represented using symbolic values rather than fixed integers. This allows one compiled graph to support multiple compatible input sizes when its guards and generated code permit it.
-
-```mermaid
-flowchart TD
-    INPUT["Input Tensor"]
-    STATIC["Static Dimension<br/>hidden = 4096"]
-    SYMBOLIC["Symbolic Dimension<br/>sequence = s0"]
-    COMPILER["Compiler Analysis"]
-
-    INPUT --> STATIC
-    INPUT --> SYMBOLIC
-    STATIC --> COMPILER
-    SYMBOLIC --> COMPILER
-```
-
-Symbolic shapes improve generality, but they also increase compiler complexity. Operations may introduce constraints on symbolic dimensions, and a change outside the supported assumptions can still trigger recompilation.
+Symbolic shapes improve generality, but they also increase compiler complexity. Operations may introduce constraints on symbolic dimensions, and inputs that violate those constraints can still trigger **recompilation**. In practice, these symbolic assumptions are enforced by runtime guards, allowing compiled graphs to be reused whenever possible while preserving correctness.
 
 ---
 
-## ⑤ AOTAutograd — Exposing the Backward Graph
+## ⑤ AOTAutograd and Operator Decomposition
 
-Dynamo can capture the forward execution, but training also requires gradient computation. In eager mode, Autograd records operations during the forward pass and dynamically executes backward functions when `backward()` is called.
+TorchDynamo captures executable Python regions as an `FX graph`. The graph is a container whose nodes represent PyTorch operations, such as calls to ATen operators. For inference, compiling the forward graph may be sufficient. Training, however, also requires the gradient computation performed during the backward pass. In eager execution, Autograd records the operations performed during the forward pass and dynamically invokes the corresponding backward functions when `backward()` is called.
 
-AOTAutograd transforms this process by tracing differentiable computation ahead of backward execution. It produces compiler-visible forward and backward graphs that can both be optimized.
+AOTAutograd makes a larger portion of this training computation visible to the compiler. It takes the graph captured from the forward program and produces separate compiler-visible `forward` and `backward` FX graphs. These graphs still contain PyTorch operators as their nodes.
 
-Conceptually, eager training behaves as follows.
+Exposing both graphs allows the compiler to optimize training operations that would otherwise be generated dynamically by `Autograd`. The amount of computation captured can still be affected by graph breaks, hooks, custom autograd functions, mutations, aliasing, and other dynamic behavior.
+
+PyTorch exposes a large operator surface. A single high-level operation may combine broadcasting, type promotion, reductions, pointwise operations, indexing, or other lower-level behavior. Requiring every compiler backend to implement every PyTorch operator independently would make backend integration unnecessarily complex. PyTorch therefore uses `decomposition rules` to rewrite supported operators into a smaller and more regular operator vocabulary.
+
+The important point is that decomposition changes the operators inside an `FX graph`. It does not replace the FX graph with a different graph format.
+
+After decomposition, the graph may contain:
+
+* `Core ATen operators`, which form a smaller subset of ATen suitable for compiler backends
+* `Prims operators`, which express computation using lower-level primitive operations
+* a mixture of operators appropriate for the selected backend
+
+Core ATen operators do not always have to be decomposed completely into Prims. Some higher-level operations retain useful semantic information that allows a backend to select specialized implementations.
+
+For example, preserving a matrix multiplication as an operation such as `aten.mm` allows a backend to recognize it as GEMM and select an optimized library call or kernel. Decomposing every matrix multiplication into scalar multiplication and addition would discard that useful structure.
+
+## ⑥ PrimTorch
+
+PrimTorch is best understood as the operator normalization effort surrounding `Core ATen`, `Prims`, reference implementations, and decomposition rules.
+
+It is not a standalone compiler executable through which every graph must pass as a separate mandatory stage.
 
 ```mermaid
-flowchart LR
-    PY["Python Forward"]
-    TAPE["Autograd Records Operations"]
-    LOSS["Loss"]
-    BACKWARD["Dynamic Backward Execution"]
+flowchart TD
+    HIGH["PyTorch Operators"]
+    RULES["Decomposition Rules"]
 
-    PY --> TAPE
-    TAPE --> LOSS
-    LOSS --> BACKWARD
+    subgraph PRIMTORCH["PrimTorch Operator Vocabulary"]
+        CORE["Core ATen"]
+        PRIMS["Prims"]
+    end
+
+    HIGH --> RULES
+    RULES --> CORE
+    RULES --> PRIMS
+    CORE -. "Optional further decomposition" .-> PRIMS
 ```
 
-With AOTAutograd, a larger portion of the gradient computation becomes an explicit graph.
+The relationship between the graph and its operators can therefore be summarized as follows:
+
+```text
+FX Graph
+└── FX Nodes
+    ├── Core ATen operators
+    ├── Prims operators
+    └── other backend-supported operators
+```
+
+An **FX graph** is the graph representation, while **ATen and Prims are operator vocabularies used by nodes inside that graph**.
+
+The compiler backend receives the resulting forward and backward FX graphs and lowers their operators into its own internal representation.
+
+For the default `torch.compile` backend, this means that TorchInductor lowers the FX graphs into TorchInductor's loop-level IR before generating target-specific code.
 
 ```mermaid
-flowchart LR
-    GRAPH["Forward FX Graph"]
+flowchart TD
+    PYTHON["Python / PyTorch Program"]
+    DYNAMO["TorchDynamo"]
+    CAPTURED["Forward FX Graph<br/>PyTorch Operators"]
+
     AOT["AOTAutograd"]
-    FORWARD["Forward Graph"]
-    BACKWARD["Backward Graph"]
-    BACKEND["Compiler Backend"]
 
-    GRAPH --> AOT
-    AOT --> FORWARD
-    AOT --> BACKWARD
-    FORWARD --> BACKEND
-    BACKWARD --> BACKEND
+    FW["Forward FX Graph"]
+    BW["Backward FX Graph"]
+
+    DECOMP["Operator Decomposition"]
+
+    FW_ATEN["Forward FX Graph<br/>Core ATen and/or Prims"]
+    BW_ATEN["Backward FX Graph<br/>Core ATen and/or Prims"]
+
+    INDUCTOR["TorchInductor"]
+    INDUCTOR_IR["TorchInductor IR"]
+    CODEGEN["Triton, C++, or Library Calls"]
+
+    PYTHON --> DYNAMO
+    DYNAMO --> CAPTURED
+    CAPTURED --> AOT
+
+    AOT --> FW
+    AOT --> BW
+
+    FW --> DECOMP
+    BW --> DECOMP
+
+    DECOMP --> FW_ATEN
+    DECOMP --> BW_ATEN
+
+    FW_ATEN --> INDUCTOR
+    BW_ATEN --> INDUCTOR
+
+    INDUCTOR --> INDUCTOR_IR
+    INDUCTOR_IR --> CODEGEN
 ```
 
-This separation gives the backend visibility into operations that would otherwise be created dynamically by Autograd. It enables optimization of both forward and backward computation, although graph breaks, hooks, custom autograd behavior, mutations, and aliasing can affect how much of the backward path is captured.
+The sequence is therefore not:
 
-AOTAutograd should not be confused with AOTInductor. AOTAutograd exposes forward and backward graphs for compilation, while AOTInductor produces deployable compiled artifacts ahead of runtime from exported models.
-
----
-
-## ⑥ Operator Decomposition and PrimTorch
-
-PyTorch exposes a large operator surface. High-level operations such as normalization, activation, indexing, or composite loss functions may internally represent combinations of simpler operations.
-
-Supporting every high-level operator independently would make compiler backends unnecessarily complex. PyTorch therefore decomposes many operations into a smaller and more regular operator set, commonly based on ATen operators and primitive operations.
-
-```mermaid
-flowchart TD
-    HIGH["High-level PyTorch Operator"]
-    DECOMP["Decomposition Rules"]
-    ATEN["Smaller ATen Operations"]
-    PRIMS["Primitive Operations"]
-    BACKEND["Compiler Backend"]
-
-    HIGH --> DECOMP
-    DECOMP --> ATEN
-    ATEN --> PRIMS
-    PRIMS --> BACKEND
+```text
+FX Graph → ATen Graph → Prims Graph
 ```
 
-A conceptual normalization operation may be decomposed as follows.
+as three mandatory graph formats.
 
-```mermaid
-flowchart LR
-    NORM["Normalization"]
-    MEAN["Mean"]
-    SUB["Subtract"]
-    VAR["Variance"]
-    RSQRT["Reciprocal Square Root"]
-    SCALE["Scale and Shift"]
+Instead, it is:
 
-    NORM --> MEAN
-    MEAN --> SUB
-    SUB --> VAR
-    VAR --> RSQRT
-    RSQRT --> SCALE
+```text
+FX Graph containing PyTorch operators
+    ↓ AOTAutograd
+Forward and backward FX graphs
+    ↓ decomposition
+FX graphs containing Core ATen and/or Prims operators
+    ↓ backend lowering
+Backend-specific IR
 ```
 
-PrimTorch refers to the effort to reduce PyTorch's broad operator set into a smaller set of primitive operations that backend developers can target. It is better understood as an operator normalization and decomposition layer than as a standalone compiler executable that every graph passes through in one isolated step.
+AOTAutograd should not be confused with AOTInductor.
 
-The important idea is that TorchInductor receives a graph expressed in an operator vocabulary it can lower and optimize effectively.
+* **AOTAutograd** exposes forward and backward computation as graphs that compiler backends can optimize.
+* **AOTInductor** compiles exported models ahead of deployment and produces deployable compiled artifacts.
+
+Official references:
+* [AOT Autograd](https://docs.pytorch.org/functorch/stable/notebooks/aot_autograd_optimizations.html)
+* [PyTorch Compiler IRs](https://docs.pytorch.org/docs/stable/user_guide/torch_compiler/torch.compiler_ir.html)
+* [Writing Graph Transformations on ATen IR](https://docs.pytorch.org/docs/stable/user_guide/torch_compiler/torch.compiler_transformations.html)
+* [PyTorch 2.x and TorchInductor](https://docs.pytorch.org/get-started/pytorch-2.0/)
 
 ---
 
@@ -331,8 +352,7 @@ flowchart LR
 
 When the operations are compatible, Inductor can generate a fused loop or GPU kernel that computes the same result without materializing every intermediate tensor.
 
-This can reduce:
-
+This can reduce :
 - Kernel launch overhead
 - Intermediate memory allocation
 - Global memory reads and writes
@@ -365,25 +385,7 @@ flowchart LR
 
 Triton provides a Python-based language and compiler for expressing blocked parallel computations. TorchInductor can generate Triton programs specialized for tensor shapes, layouts, dtypes, and hardware properties.
 
-The Triton compiler then lowers the program through lower-level compiler representations until executable GPU code is produced.
-
-```mermaid
-flowchart LR
-    INDUCTOR["Inductor-generated Triton"]
-    TRITON["Triton Compiler"]
-    LOWER["Lower-level GPU IR"]
-    BINARY["GPU Binary"]
-    DRIVER["CUDA Driver"]
-    GPU["GPU"]
-
-    INDUCTOR --> TRITON
-    TRITON --> LOWER
-    LOWER --> BINARY
-    BINARY --> DRIVER
-    DRIVER --> GPU
-```
-
-Triton is therefore not the component that captures Python or creates the Autograd graph. It operates near the lower end of the pipeline, where compiler-visible tensor computations are converted into executable GPU kernels.
+The Triton compiler then lowers the program through lower-level compiler representations until executable GPU code is produced. Triton is therefore not the component that captures Python or creates the Autograd graph. It operates near the lower end of the pipeline, where compiler-visible tensor computations are converted into executable GPU kernels.
 
 ---
 
@@ -561,24 +563,6 @@ total_loss = sum(
 The condition evaluates CUDA tensor values from Python. Nsight Systems exposed the resulting synchronization as repeated small Device-to-Host copies and host-side waiting.
 
 The optimized implementation replaced Python branching with tensor operations so that the filtering and aggregation remained on the device.
-
-```mermaid
-flowchart TD
-    PROFILE["Nsight Systems Profile"]
-    MEMCPY["Repeated Small DtoH Copies"]
-    WAIT["Host-side Waiting"]
-    SOURCE["Python Conditional on CUDA Tensor"]
-    FIX["GPU-side Tensor Aggregation"]
-    PR["Transformers Upstream Contribution"]
-
-    PROFILE --> MEMCPY
-    MEMCPY --> WAIT
-    WAIT --> SOURCE
-    SOURCE --> FIX
-    FIX --> PR
-```
-
-This case demonstrates an important boundary: compiler architecture explains how PyTorch can optimize captured tensor programs, while system profiling reveals what actually happened at runtime. Both perspectives are required when diagnosing distributed GPU workloads.
 
 ---
 
