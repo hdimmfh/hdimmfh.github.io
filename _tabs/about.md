@@ -15,10 +15,13 @@ Cloud & AI Infrastructure Engineer focused on GPU systems, distributed computing
 ## 🍎 Open Source
 
 Contributed to projects including:
-
-- Hugging Face Transformers
-- OpenTelemetry Collector
-- NVIDIA Dynamo
+<div class="trending-tags">
+  <div class="tag-list">
+    <a href="https://github.com/huggingface/transformers/pull/47073">Huggingface Transformers</a>
+    <a href="https://github.com/huggingface/transformers/pull/47073">OpenTelemetry Collector</a>
+    <a href="https://github.com/huggingface/transformers/pull/47073">NVIDIA Dynamo</a>
+  </div>
+</div>
 
 ## 📰 Reading Notes
 
