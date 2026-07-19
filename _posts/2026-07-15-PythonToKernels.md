@@ -32,27 +32,6 @@ outputs = compiled_model(inputs)
 
 The overall flow can be summarized as follows.
 
-```mermaid
-flowchart LR
-    PY["Python Program"]
-    DYNAMO["TorchDynamo"]
-    FX["FX Graph"]
-    AOT["AOTAutograd"]
-    DECOMP["ATen Decomposition"]
-    INDUCTOR["TorchInductor"]
-    CODEGEN["Triton or C++"]
-    RUNTIME["CUDA or CPU Runtime"]
-    DEVICE["GPU or CPU"]
-
-    PY --> DYNAMO
-    DYNAMO --> FX
-    FX --> AOT
-    AOT --> DECOMP
-    DECOMP --> INDUCTOR
-    INDUCTOR --> CODEGEN
-    CODEGEN --> RUNTIME
-    RUNTIME --> DEVICE
-```
 ![Torch to Kernel Pipeline](https://github.com/hdimmfh/hdimmfh.github.io/blob/main/_data/blog-img-repo/img/gpu/cuda/torch_pipeline.png?raw=true)
 *Figure 1. From Python to GPU Kernels.*
 
