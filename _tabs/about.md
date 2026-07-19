@@ -5,25 +5,22 @@ order: 4
 
 ## 😎 Myeongsu Koo
 
-Cloud & AI Infrastructure Engineer focused on GPU systems, distributed computing, and high-performance networking. I write about GPU architecture, CUDA, Kubernetes, AI infrastructure, InfiniBand/RDMA, and performance optimization based on hands-on engineering and open-source contributions.
+Cloud & AI Infrastructure Engineer focused on GPU systems, distributed computing, and high-performance networking. I write about GPU architecture, CUDA, Kubernetes, AI infrastructure, InfiniBand/RDMA, eBPF, and performance optimization based on hands-on engineering experience and open-source contributions.
 
 ## 🔗 Links
 
-- **GitHub:** https://github.com/hdimmfh
-- **LinkedIn:** https://linkedin.com/in/myeongsu-koo-623805269
+- GitHub: <https://github.com/hdimmfh>
+- LinkedIn: <https://linkedin.com/in/myeongsu-koo-623805269>
 
 ## 🍎 Open Source
 
 Contributed to projects including:
-<div class="trending-tags">
-  <div class="tag-list">
-    <a href="https://github.com/huggingface/transformers/pull/47073">Huggingface Transformers</a>
-    <a href="https://github.com/huggingface/transformers/pull/47073">OpenTelemetry Collector</a>
-    <a href="https://github.com/huggingface/transformers/pull/47073">NVIDIA Dynamo</a>
-  </div>
-</div>
 
-## 📰 Reading Notes
+- Hugging Face Transformers
+- OpenTelemetry Collector
+- NVIDIA Dynamo
+
+## 📰 Latest Reading Notes
 
 | Date | Topic | Official Documentation |
 |------|-------|------------|
