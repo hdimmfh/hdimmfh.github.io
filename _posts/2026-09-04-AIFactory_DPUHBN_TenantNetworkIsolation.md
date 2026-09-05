@@ -348,13 +348,13 @@ OVN DPUService
 
 The main points are:
 
-- **HBN is the DPU network service.**
-- **NICo VPC uses VRF + L3 VNI + pure EVPN Type-5.**
-- **NSG does not modify routing. It filters L3/L4 traffic on top of existing VPC routing.**
-- **NICo NSG is implemented as HBN/NVUE ACL state.**
-- **Inter-VPC isolation is primarily provided by separate VRFs.**
-- **OVN NetworkPolicy is a separate workload-policy domain.**
-- **SFC connects DPU services; it does not connect ACL rules.**
+- HBN is the DPU network service.
+- NICo VPC uses VRF + L3 VNI + pure EVPN Type-5.
+- NSG does not modify routing. It filters L3/L4 traffic on top of existing VPC routing.
+- NICo NSG is implemented as HBN/NVUE ACL state.
+- Inter-VPC isolation is primarily provided by separate VRFs.
+- OVN NetworkPolicy is a separate workload-policy domain.
+- SFC connects DPU services; it does not connect ACL rules.
 
 ---
 
